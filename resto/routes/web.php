@@ -14,21 +14,10 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function (Request $request) {
-    dd($request->lsdfjkjsdhf);
-    return view('index');
+    $data = ["title" => "Accueil"];
+    return view('index', $data);
 })->name("index");
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name("contact");
-
-//Regroupe les routes qui commencent par le même nom
-Route::group(['prefix' => 'admin'], function () {
-
-    Route::get("/", function () {
-        return view("admin.index");
-    });
-    Route::get("/produits", function () {
-        return view("admin.index");
-    });
-});
+Route::get('/a-propos', function () {
+    return view('a_propos');
+})->name("about");
