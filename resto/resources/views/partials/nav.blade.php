@@ -1,7 +1,8 @@
 <nav class="flex items-center gap-5">
-
+    {{-- @dump(request()->is('/')) --}}
     <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline 
-    {{ request()->is('/') ? 'active' : '' }}" href="{{ route('index') }}">Accueil</a>
+    {{ request()->is('/') ? 'active' : '' }}"
+        href="{{ route('index') }}">Accueil</a>
 
     <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline 
     {{ request()->is('allergies') ? 'active' : '' }}"
