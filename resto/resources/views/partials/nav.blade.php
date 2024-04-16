@@ -1,9 +1,18 @@
 <nav class="flex items-center gap-5">
-    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline"
-        href="{{ route('index') }}">Accueil</a>
-    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline" href="#">Allergies,
+
+    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline 
+    {{ request()->is('/') ? 'active' : '' }}" href="{{ route('index') }}">Accueil</a>
+
+    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline 
+    {{ request()->is('allergies') ? 'active' : '' }}"
+        href="#">Allergies,
         contre-indications</a>
-    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline" href="{{ route('about') }}">À
+
+    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline
+    {{ request()->is('a-propos') ? 'active' : '' }}"
+        href="{{ route('about') }}">À
         propos</a>
-    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline" href="#">Heures d'ouverture</a>
+
+    <a class="font-bold text-md text-amber-900 hover:text-amber-400 hover:underline {{ request()->is('heures') ? 'active' : '' }}"
+        href="#">Heures d'ouverture</a>
 </nav>

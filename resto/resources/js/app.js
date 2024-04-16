@@ -1,2 +1,3 @@
 import "./bootstrap";
-// import.meta.glob(["../img/**", "../fonts/**"]);
+// import "../img/logo.png";
+import.meta.glob(["../img/**", "../fonts/**"]);

@@ -1,7 +1,15 @@
 @import url("./base/colors.css");
 @import url("./base/typography.css");
 @import url("./base/general.css");
+.patate {
+    color: tomato;
+}
 
+.active {
+    font-weight: 600;
+    color: tomato !important;
+    pointer-events: none;
+}
 /* @tailwind base;
 @tailwind components;
 @tailwind utilities; */

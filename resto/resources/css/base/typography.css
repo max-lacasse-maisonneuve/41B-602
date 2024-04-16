@@ -1,3 +1,12 @@
+@font-face {
+    font-family: "LemonTuesday";
+    src: url("../../fonts/LemonTuesday.otf");
+}
+
 :root {
     --police-principale: "Arial";
+}
+
+h1 {
+    font-family: "LemonTuesday";
 }
