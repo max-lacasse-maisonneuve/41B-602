@@ -6,6 +6,10 @@ module.exports = {
         "./resources/**/*.vue",
     ],
     theme: {
+        fontFamily: {
+            secondaire: "LemonTuesday",
+        },
+
         extend: {
             colors: {
                 patate: "#ff0000",

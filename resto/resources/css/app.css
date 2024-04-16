@@ -1,6 +1,11 @@
 @import url("./base/colors.css");
 @import url("./base/typography.css");
 @import url("./base/general.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .patate {
     color: tomato;
 }
@@ -10,6 +15,3 @@
     color: tomato !important;
     pointer-events: none;
 }
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
