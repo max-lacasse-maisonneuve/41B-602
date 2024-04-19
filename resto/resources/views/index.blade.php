@@ -1,6 +1,6 @@
 @extends('partials.base')
 
-@section('title', 'Accueil')
+@section('title', $title)
 
 @section('content')
     <main class="flex-auto flex flex-col justify-center align-center text-center gap-5 "
