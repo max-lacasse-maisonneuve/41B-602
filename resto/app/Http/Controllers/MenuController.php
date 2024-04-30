@@ -14,19 +14,7 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        //Query String, provient de request
-        $tri = $request->query("tri", "nom");
-        $direction = $request->query("direction", "asc");
-        $prixMax = $request->query("prix-max");
-
-        $menusQuery = Menu::query();
-
-        if ($prixMax) {
-            $menusQuery->where("prix", "<", $prixMax);
-        }
-
-        $menusQuery->orderBy($tri, $direction);
-        $menus = $menusQuery->get();
+        $menus = Menu::all();
 
         return view("menus.index", ["menus" => $menus, "title" => "Menus du resto"]);
     }
