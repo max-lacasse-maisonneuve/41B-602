@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 /*
@@ -21,3 +22,5 @@ Route::get('/', function (Request $request) {
 Route::get('/a-propos', function () {
     return view('a_propos');
 })->name("about");
+
+Route::resource("/menus", MenuController::class);

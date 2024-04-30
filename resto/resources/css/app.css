@@ -5,7 +5,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@keyframes alert {
+    0% {
+        top: -200px;
+    }
+    30% {
+        top: 0;
+    }
+    70% {
+        top: 0;
+    }
+    100% {
+        top: -200px;
+    }
+}
 .patate {
     color: tomato;
 }
@@ -14,4 +27,21 @@
     font-weight: 600;
     color: tomato !important;
     pointer-events: none;
+}
+
+.alert {
+    top: -200px;
+    animation: "alert" 3000ms ease-in-out 100ms backwards;
+
+    &.info {
+        background-color: cornflowerblue;
+    }
+
+    &.warning {
+        background-color: darkorange;
+    }
+
+    &.danger {
+        background-color: crimson;
+    }
 }
