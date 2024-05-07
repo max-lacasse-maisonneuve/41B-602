@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreMenuRequest extends FormRequest
+class LoginPatateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,10 +22,7 @@ class StoreMenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "nom" => "required|min:3|max:100|string",
-            "description" => "required|max:250|string",
-            "prix" => "required|numeric|min:0|decimal:0,2|max:200",
-            "estVege" => "boolean"
+            //
         ];
     }
 }

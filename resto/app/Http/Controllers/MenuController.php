@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MenuController extends Controller
 {
@@ -14,6 +16,16 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
+        // Log::info($request->url());
+        // Log::warning("Message d'avertissement");
+        // Log::error("Erreur");
+        // abort(419, "Message personnalisé");
+        // try {
+        //     throw new Exception("Patate");
+        // } catch (Exception $e) {
+        //     Log::warning($e->getMessage());
+        //     return back()->with("erreur", $e->getMessage());
+        // }
         //On récupère le queryString de la requête donc de l'url Ex: www.patate.com?tri=nom&direction=asc
         $tri = $request->query('tri', 'nom');
         $direction = $request->query('direction', 'asc');
@@ -46,19 +58,22 @@ class MenuController extends Controller
      */
     public function store(StoreMenuRequest $request)
     {
+        //Tableau contenant les champs validés et nettoyés
+        $validated = $request->validated();
+
         // Création d'une nouvelle instance de Menu
         $nouveauMenu = new Menu();
         // Remplissage de l'instance de Menu avec les données de la requête
-        $nouveauMenu->fill($request->all());
+        $nouveauMenu->fill($validated);
 
         // Conversion de la valeur de la clé "estVege" en boolean
         $nouveauMenu->estVege = $request->boolean("estVege");
-
+        dd($request->boolean("estVege"));
         // Utilisation d'un bloc try/catch pour gérer les erreurs potentielles lors de l'enregistrement du Menu
         $nouveauMenu->save();
 
         // Si tout se passe bien, redirection vers l'index des menus
-        return redirect()->route("menus.index");
+        return redirect()->route("menus.index")->with("success", "Le menu a été ajouté");
     }
 
 

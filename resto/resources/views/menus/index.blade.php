@@ -3,6 +3,16 @@
 @section('title', $title)
 
 @section('content')
+    @if (session('success'))
+        <x-alert :type="'success'">
+            {{ session('success') }}
+        </x-alert>
+    @endif
+    @if (session('erreur'))
+        <x-alert :type="'danger'">
+            {{ session('erreur') }}
+        </x-alert>
+    @endif
     @if ($menus->isEmpty())
         <x-alert :type="'danger'">
             Vous n'avez aucun menu à afficher

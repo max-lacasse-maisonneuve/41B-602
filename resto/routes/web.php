@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\MenuController;
+use App\Models\Menu;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
