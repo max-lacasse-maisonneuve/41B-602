@@ -5,6 +5,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @keyframes alert {
     0% {
         top: -200px;
@@ -19,6 +20,7 @@
         top: -200px;
     }
 }
+
 .patate {
     color: tomato;
 }
@@ -31,17 +33,5 @@
 
 .alert {
     top: -200px;
-    animation: "alert" 3000ms ease-in-out 100ms backwards;
-
-    &.info {
-        background-color: cornflowerblue;
-    }
-
-    &.warning {
-        background-color: darkorange;
-    }
-
-    &.danger {
-        background-color: crimson;
-    }
+    animation: alert 4000ms ease-in-out 100ms backwards;
 }

@@ -14,7 +14,20 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        $menus = Menu::all();
+        //On récupère le queryString de la requête donc de l'url Ex: www.patate.com?tri=nom&direction=asc
+        $tri = $request->query('tri', 'nom');
+        $direction = $request->query('direction', 'asc');
+        $prixMax = $request->query("prix-max");
+
+        //Query démare une demande au modèle et doit finir avec get()
+        $menuQuery = Menu::query();
+        $menuQuery->orderBy($tri, $direction);
+
+        if ($prixMax) {
+            $menuQuery->where("prix", "<", $prixMax);
+        }
+
+        $menus = $menuQuery->get();
 
         return view("menus.index", ["menus" => $menus, "title" => "Menus du resto"]);
     }
@@ -24,7 +37,8 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        // dd(session()->all());
+        return view("menus.create");
     }
 
     /**
@@ -32,8 +46,21 @@ class MenuController extends Controller
      */
     public function store(StoreMenuRequest $request)
     {
-        //
+        // Création d'une nouvelle instance de Menu
+        $nouveauMenu = new Menu();
+        // Remplissage de l'instance de Menu avec les données de la requête
+        $nouveauMenu->fill($request->all());
+
+        // Conversion de la valeur de la clé "estVege" en boolean
+        $nouveauMenu->estVege = $request->boolean("estVege");
+
+        // Utilisation d'un bloc try/catch pour gérer les erreurs potentielles lors de l'enregistrement du Menu
+        $nouveauMenu->save();
+
+        // Si tout se passe bien, redirection vers l'index des menus
+        return redirect()->route("menus.index");
     }
+
 
     /**
      * Display the specified resource.
