@@ -16,16 +16,15 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
+        $nouveauMenu = new Menu();
+
+        session()->put("panier", ["patate", $nouveauMenu]);//Reste pour toutes les requêtes
+        session()->flash("panier2", ["patate", $nouveauMenu]);//Pratique pour erreur ou message de succes. pour une requête
         // Log::info($request->url());
         // Log::warning("Message d'avertissement");
         // Log::error("Erreur");
         // abort(419, "Message personnalisé");
-        // try {
-        //     throw new Exception("Patate");
-        // } catch (Exception $e) {
-        //     Log::warning($e->getMessage());
-        //     return back()->with("erreur", $e->getMessage());
-        // }
+
         //On récupère le queryString de la requête donc de l'url Ex: www.patate.com?tri=nom&direction=asc
         $tri = $request->query('tri', 'nom');
         $direction = $request->query('direction', 'asc');
@@ -66,9 +65,14 @@ class MenuController extends Controller
         // Remplissage de l'instance de Menu avec les données de la requête
         $nouveauMenu->fill($validated);
 
+        if ($request->image) {
+            $path = $request->image->store("menus", "public");
+            $nouveauMenu->image = $path;
+        }
+
         // Conversion de la valeur de la clé "estVege" en boolean
         $nouveauMenu->estVege = $request->boolean("estVege");
-        dd($request->boolean("estVege"));
+
         // Utilisation d'un bloc try/catch pour gérer les erreurs potentielles lors de l'enregistrement du Menu
         $nouveauMenu->save();
 
@@ -82,6 +86,9 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
+        $patate = session()->get("panier");
+        session()->forget("panier");
+        // dd($patate);
         return view("menus.menu", ["menu" => $menu, "title" => $menu->nom]);
     }
 

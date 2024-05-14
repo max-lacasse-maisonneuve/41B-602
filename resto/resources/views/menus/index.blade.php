@@ -13,6 +13,11 @@
             {{ session('erreur') }}
         </x-alert>
     @endif
+    @if (session('panier'))
+        <x-alert :type="'danger'">
+            {{ session('panier')[0] }}
+        </x-alert>
+    @endif
     @if ($menus->isEmpty())
         <x-alert :type="'danger'">
             Vous n'avez aucun menu à afficher
@@ -38,6 +43,9 @@
                     'text-amber-900 z-10 basis-1/4 bg-amber-500',
                     'bg-blue-500 text-white' => $menu->prix > 10,
                 ])>
+                    @if ($menu->image)
+                        <img src="{{ $menu->imageFullPath() }}" alt="Image pour {{ $menu->nom }}">
+                    @endif
                     <p>{{ $menu->nom }}</p>
                     <p>{{ $menu->prix }}</p>
                     <p>{{ $menu->description }}</p>
