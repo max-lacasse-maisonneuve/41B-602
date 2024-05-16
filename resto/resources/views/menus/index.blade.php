@@ -3,26 +3,6 @@
 @section('title', $title)
 
 @section('content')
-    @if (session('success'))
-        <x-alert :type="'success'">
-            {{ session('success') }}
-        </x-alert>
-    @endif
-    @if (session('erreur'))
-        <x-alert :type="'danger'">
-            {{ session('erreur') }}
-        </x-alert>
-    @endif
-    @if (session('panier'))
-        <x-alert :type="'danger'">
-            {{ session('panier')[0] }}
-        </x-alert>
-    @endif
-    @if ($menus->isEmpty())
-        <x-alert :type="'danger'">
-            Vous n'avez aucun menu à afficher
-        </x-alert>
-    @endif
     <main class="flex-auto flex flex-col justify-center align-center text-center gap-5 "
         style="background:linear-gradient(to left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%), url({{ Vite::asset('resources/img/banniere.jpeg') }}); background-size:cover, cover;">
         <div class="flex justify-center my-3">

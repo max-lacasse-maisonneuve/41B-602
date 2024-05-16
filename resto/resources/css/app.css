@@ -33,5 +33,5 @@
 
 .alert {
     top: -200px;
-    animation: alert 4000ms ease-in-out 100ms backwards;
+    animation: alert 2000ms ease-in-out 100ms backwards;
 }
