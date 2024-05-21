@@ -15,6 +15,11 @@
             <a class="p-3 rounded-lg bg-amber-500 text-amber-950"
                 href="{{ route('menus.index', ['tri' => 'prix', 'direction' => 'asc', 'prix-max' => 10]) }}">Spéciaux de la
                 fin de semaine</a>
+
+            @foreach ($categories as $categorie)
+                <a class="p-3 rounded-lg bg-amber-500 text-amber-950"
+                    href="{{ route('menus.index', ['categorie' => $categorie->id]) }}">{{ $categorie->nom }}</a>
+            @endforeach
         </div>
         {{-- bg-amber-100 text-amber-900 z-10 basis-1/4 flex flex-col gap-3 --}}
         <section class="flex flex-wrap gap-3 justify-center items-center">
@@ -29,6 +34,9 @@
                     <p>{{ $menu->nom }}</p>
                     <p>{{ $menu->prix }}</p>
                     <p>{{ $menu->description }}</p>
+                    @if ($menu->categorie !== null)
+                        <p>{{ $menu->categorie->nom }}</p>
+                    @endif
                 </a>
 
             @empty

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categorie;
 use App\Models\Menu;
 use App\Http\Requests\StoreMenuRequest;
 use App\Http\Requests\UpdateMenuRequest;
@@ -29,9 +30,15 @@ class MenuController extends Controller
         $tri = $request->query('tri', 'nom');
         $direction = $request->query('direction', 'asc');
         $prixMax = $request->query("prix-max");
+        $categorie = $request->query("categorie");
 
         //Query démare une demande au modèle et doit finir avec get()
         $menuQuery = Menu::query();
+        if ($categorie) {
+            $menuQuery = $menuQuery->where("categorie_id", $categorie);
+        }
+
+        // dd($menuQuery);
         $menuQuery->orderBy($tri, $direction);
 
         if ($prixMax) {
@@ -40,7 +47,11 @@ class MenuController extends Controller
 
         $menus = $menuQuery->get();
 
-        return view("menus.index", ["menus" => $menus, "title" => "Menus du resto"]);
+        $categories = Categorie::all();
+        $tests = $categories->first()->menus;
+        dd($tests);
+        // dd($menus->first()->categorie->nom);
+        return view("menus.index", ["menus" => $menus, "title" => "Menus du resto", "categories" => $categories]);
     }
 
     /**
