@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateMenuRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -18,9 +19,9 @@ class MenuController extends Controller
     public function index(Request $request)
     {
         $nouveauMenu = new Menu();
-
-        session()->put("panier", ["patate", $nouveauMenu]);//Reste pour toutes les requêtes
-        session()->flash("panier2", ["patate", $nouveauMenu]);//Pratique pour erreur ou message de succes. pour une requête
+        // session()->flush();
+        // session()->put("panier", ["patate", $nouveauMenu]);//Reste pour toutes les requêtes
+        // session()->flash("panier2", ["patate", $nouveauMenu]);//Pratique pour erreur ou message de succes. pour une requête
         // Log::info($request->url());
         // Log::warning("Message d'avertissement");
         // Log::error("Erreur");
@@ -48,8 +49,8 @@ class MenuController extends Controller
         $menus = $menuQuery->get();
 
         $categories = Categorie::all();
-        $tests = $categories->first()->menus;
-        dd($tests);
+        // $tests = $categories->first()->menus;
+        // dd($tests);
         // dd($menus->first()->categorie->nom);
         return view("menus.index", ["menus" => $menus, "title" => "Menus du resto", "categories" => $categories]);
     }
@@ -97,8 +98,10 @@ class MenuController extends Controller
      */
     public function show(Menu $menu)
     {
-        $patate = session()->get("panier");
-        session()->forget("panier");
+        // $test = new Menu();
+        // $test->chercherParNom("pATATE");
+        // $patate = session()->get("panier");
+        // session()->forget("panier");
         // dd($patate);
         return view("menus.menu", ["menu" => $menu, "title" => $menu->nom]);
     }
@@ -108,7 +111,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
-        //
+        return view("menus.edit", ["menu" => $menu]);
     }
 
     /**
@@ -116,7 +119,37 @@ class MenuController extends Controller
      */
     public function update(UpdateMenuRequest $request, Menu $menu)
     {
-        //
+        //Tableau contenant les champs validés et nettoyés
+        $validated = $request->validated();
+
+        // Création d'une nouvelle instance de Menu
+        $menuAModifier = $menu;
+
+        if ($request->image) {
+            // dd($request->image, $menu->image, Storage::disk("public")->exists($menu->image));
+            //On supprime l'ancienne image stockée sur le serveur
+            if (Storage::disk("public")->exists($menu->image)) {
+
+                Storage::disk("public")->delete($menu->image);
+            }
+        }
+
+        // Remplissage de l'instance de Menu avec les données de la requête
+        $menuAModifier->fill($validated);
+
+        if ($request->image) {
+            $path = $request->image->store("menus", "public");
+            $menuAModifier->image = $path;
+        }
+
+        // Conversion de la valeur de la clé "estVege" en boolean
+        $menuAModifier->estVege = $request->boolean("estVege");
+
+        // Utilisation d'un bloc try/catch pour gérer les erreurs potentielles lors de l'enregistrement du Menu
+        $menuAModifier->update();
+
+        // Si tout se passe bien, redirection vers l'index des menus
+        return redirect()->route("menus.index")->with("success", "Le menu a été modifié");
     }
 
     /**
@@ -124,6 +157,9 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
-        //
+        $menu->delete();
+        return redirect()->route("menus.index")->with("success", "Le menu a été supprimé");
+        //$menu->restore();
+        //$menu->forceDelete();
     }
 }

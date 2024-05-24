@@ -39,6 +39,15 @@
                     @endif
                 </a>
 
+                <a href="{{ route('menus.edit', $menu) }}" class="bg-amber-600 rounded-sm cursor-pointer p-3">Modifier un
+                    menu
+                </a>
+                <form action="{{ route('menus.destroy', $menu) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <input type="submit" class="bg-amber-600 rounded-sm cursor-pointer p-3" value="Supprimer" />
+
+                </form>
             @empty
                 <p class="bg-amber-50 p-12 self-center text-lg rounded-lg">Aucun menu</p>
             @endforelse
