@@ -46,7 +46,9 @@ class MenuController extends Controller
             $menuQuery->where("prix", "<", $prixMax);
         }
 
-        $menus = $menuQuery->get();
+
+        $menus = $menuQuery->simplePaginate(3)->withQueryString();
+
 
         $categories = Categorie::all();
         // $tests = $categories->first()->menus;
