@@ -15,6 +15,24 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/locale', function (Request $request) {
+    //On récupère le paramètre de la langue
+    $query = $request->query();
+
+    //Si le paramètre existe, on le met en session 
+    //sinon on place une valeur par défaut
+    if (isset ($query["lang"])) {
+        $lang = $query["lang"];
+    } else {
+        $lang = "en";
+    }
+
+    session()->put("locale", $lang);
+
+    //On retourne à la page précédente
+    return back();
+
+})->name("locale");
 
 Route::get('/', function (Request $request) {
     $data = ["title" => "Accueil"];
