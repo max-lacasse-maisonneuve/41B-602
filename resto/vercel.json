@@ -21,8 +21,5 @@
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie"
-    },
-    "scripts": {
-        "vercel": ["@php -v", "npm -v"]
     }
 }

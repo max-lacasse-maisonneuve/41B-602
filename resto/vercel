@@ -1,0 +1,3 @@
+"scripts": {
+"vercel": ["@php -v", "npm -v"]
+}
