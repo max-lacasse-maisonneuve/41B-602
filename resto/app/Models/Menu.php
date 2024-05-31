@@ -31,4 +31,10 @@ class Menu extends Model
         return Menu::query()->where("nom", $nom)->get();
     }
 
+    public function hasCourse(Int $int){
+       $tableau =  $this->courses();
+       //Chercher si le id existe
+       //retourner le bon cours ou false
+    }   
+
 }

@@ -7,9 +7,9 @@
         style="background:linear-gradient(to left, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.5) 100%), url({{ Vite::asset('resources/img/banniere.jpeg') }}); background-size:cover, cover;">
         <div class="flex justify-center my-3">
             <a class="p-3 rounded-lg bg-amber-500 text-amber-950"
-                href="{{ route('menus.index', ['tri' => 'prix', 'direction' => 'desc']) }}">{{ __("menus.index.btn-price") }}</a>
+                href="{{ route('menus.index', ['tri' => 'prix', 'direction' => 'desc']) }}">{{ __('menus.index.btn-price') }}</a>
             <a class="p-3 rounded-lg bg-amber-500 text-amber-950"
-                href="{{ route('menus.index', ['tri' => 'nom', 'direction' => 'asc']) }}">{{ __("menus.index.btn-name") }}</a>
+                href="{{ route('menus.index', ['tri' => 'nom', 'direction' => 'asc']) }}">{{ __('menus.index.btn-name') }}</a>
             <a class="p-3 rounded-lg bg-amber-500 text-amber-950"
                 href="{{ route('menus.index', ['tri' => 'prix', 'direction' => 'asc', 'prix-max' => 10]) }}">Spéciaux de la
                 fin de semaine</a>
@@ -37,15 +37,17 @@
                     @endif
                 </a>
 
-                <a href="{{ route('menus.edit', $menu) }}" class="bg-amber-600 rounded-sm cursor-pointer p-3">Modifier un
-                    menu
-                </a>
-                <form action="{{ route('menus.destroy', $menu) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" class="bg-amber-600 rounded-sm cursor-pointer p-3" value="Supprimer" />
+                @auth
+                    <a href="{{ route('menus.edit', $menu) }}" class="bg-amber-600 rounded-sm cursor-pointer p-3">Modifier un
+                        menu
+                    </a>
+                    <form action="{{ route('menus.destroy', $menu) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="submit" class="bg-amber-600 rounded-sm cursor-pointer p-3" value="Supprimer" />
 
-                </form>
+                    </form>
+                @endauth
             @empty
                 <p class="bg-amber-50 p-12 self-center text-lg rounded-lg">Aucun menu</p>
             @endforelse

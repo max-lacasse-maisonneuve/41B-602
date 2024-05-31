@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
 use App\Models\Menu;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -35,6 +37,11 @@ Route::get('/locale', function (Request $request) {
 })->name("locale");
 
 Route::get('/', function (Request $request) {
+    //On trouve le premier user
+    // $utilisateur = User::first();
+    // auth()->login($utilisateur);
+    // auth()->logout();
+    // dd(auth()->user());
     $data = ["title" => "Accueil"];
     return view('index', $data);
 })->name("index");
@@ -42,5 +49,9 @@ Route::get('/', function (Request $request) {
 Route::get('/a-propos', function () {
     return view('a_propos');
 })->name("about");
+
+Route::get("/connexion", [AuthController::class, "login"])->name("login");
+Route::post("/connexion", [AuthController::class, "authenticate"])->name("authenticate");
+Route::get("/deconnexion", [AuthController::class, "logout"])->name("logout");
 
 Route::resource("/menus", MenuController::class);
