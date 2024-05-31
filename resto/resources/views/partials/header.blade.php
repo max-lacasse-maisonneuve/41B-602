@@ -4,8 +4,19 @@
     </div>
     @include('partials.nav')
     <div class="flex justify-center items-center gap-6">
-        <a href={{ route("locale", ["lang"=>"en"]) }}>EN</a>
+        <a href={{ route('locale', ['lang' => 'en']) }}>EN</a>
         <a href="/locale?lang=fr">FR</a>
     </div>
 
+    @auth
+        <div class="flex justify-center items-center gap-6">
+            <a href="{{ route('logout') }}">Déconnexion</a>
+        </div>
+    @endauth
+    
+    @guest
+        <div class="flex justify-center items-center gap-6">
+            <a href="{{ route('login') }}">Connexion</a>
+        </div>
+    @endguest
 </header>
